@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mesas registradas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="app-logo">
+            <div class="logo-badge"></div>
+            <div>
+                <div class="app-title">SaborGourmet</div>
+                <div class="app-subtitle">Gestión de mesas</div>
+            </div>
+        </div>
+
+        <nav class="app-nav">
+            <a th:href="@{/}" class="nav-link">Inicio</a>
+            <a th:href="@{/mesas}" class="nav-link nav-link-active">Mesas</a>
+            <a th:href="@{/clientes}" class="nav-link">Clientes</a>
+            <a th:href="@{/reservas}" class="nav-link">Reservas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="app-main">
+        <section class="list-section">
+
+            <!-- ESTA CABECERA ES IGUAL A LA DE RESERVAS -->
+            <div class="list-header"
+     style="display:flex; justify-content:space-between; align-items:flex-start; gap:1.5rem; flex-wrap:wrap;">
+    <div>
+        <h1 class="list-title">Mesas registradas</h1>
+        <p class="list-subtitle">
+            Revisa la disponibilidad y capacidad de cada mesa del restaurante.
+        </p>
+    </div>
+
+    <div class="list-header-actions"
+         style="display:flex; align-items:center; gap:1rem;">
+        <div class="chip">
+            🍽️
+            <span th:text="${#lists.size(mesas)} + ' mesas registradas'">
+                0 mesas registradas
+            </span>
+        </div>
+
+        <a th:href="@{/mesas/nueva}" class="btn btn-primary">
+            + Nueva mesa
+        </a>
+    </div>
+</div>
+
+
+            <!-- LISTA DE MESAS -->
+            <div th:if="${!#lists.isEmpty(mesas)}" class="card-grid">
+                <article class="card" th:each="mesa : ${mesas}">
+                    <div class="card-header">
+                        <h2 class="card-title"
+                            th:text="${'Mesa ' + mesa.numero}">
+                            Mesa 1
+                        </h2>
+                        <span class="card-id"
+                              th:text="${'ID # ' + mesa.id}">
+                            ID # 1
+                        </span>
+                    </div>
+
+                    <div class="card-body">
+                        <p class="card-text">
+                            Capacidad:
+                            <span th:text="${mesa.capacidad + ' personas'}">
+                                4 personas
+                            </span>
+                        </p>
+                        <p class="card-text">
+                            Estado:
+                            <span th:if="${mesa.disponible}" class="badge badge-success">
+                                Disponible
+                            </span>
+                            <span th:if="${!mesa.disponible}" class="badge badge-warning">
+                                No disponible
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="card-actions">
+                        <a th:href="@{'/mesas/editar/' + ${mesa.id}}"
+                           class="btn btn-outline-sm">✏️ Editar</a>
+
+                        <a th:href="@{'/mesas/eliminar/' + ${mesa.id}}"
+                           class="btn btn-danger-sm"
+                           onclick="return confirm('¿Seguro que deseas eliminar esta mesa?');">
+                            🗑️ Eliminar
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- ESTADO VACÍO -->
+            <div th:if="${#lists.isEmpty(mesas)}" class="empty-state">
+                <p class="empty-title">Todavía no hay mesas registradas.</p>
+                <p class="empty-text">
+                    Comienza registrando la primera mesa del restaurante.
+                </p>
+
+                <a th:href="@{/mesas/nueva}" class="btn btn-primary">
+                    + Registrar primera mesa
+                </a>
+            </div>
+
+            <a th:href="@{/}" class="back-link">
+                ← Volver al inicio
+            </a>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        SaborGourmet · Gestión de mesas
+    </footer>
+</div>
+
+</body>
+</html>

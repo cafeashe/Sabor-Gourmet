@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SaborGourmet · Gestión de reservas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="app-logo">
+            <div class="logo-badge"></div>
+            <div>
+                <div class="app-title">SaborGourmet</div>
+                <div class="app-subtitle">Gestión de reservas</div>
+            </div>
+        </div>
+
+        <nav class="app-nav">
+            <a th:href="@{/}" class="nav-link">Inicio</a>
+            <a th:href="@{/mesas}" class="nav-link">Mesas</a>
+            <a th:href="@{/clientes}" class="nav-link">Clientes</a>
+            <a th:href="@{/reservas}" class="nav-link nav-link-active">Reservas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="app-main">
+
+        <!-- CABECERA (igual a clientes/mesas) -->
+        <header class="section-header">
+            <div>
+                <h1 class="section-title">Reservas registradas</h1>
+                <p class="section-subtitle">
+                    Revisa las reservas, su fecha, cliente asociado y mesa asignada.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <div class="chip">
+                    📅
+                    <span th:text="${#lists.size(reservas)} + ' reservas registradas'">
+                        0 reservas registradas
+                    </span>
+                </div>
+
+                <a th:href="@{/reservas/nueva}" class="btn btn-primary">
+                    + Nueva reserva
+                </a>
+            </div>
+        </header>
+
+        <!-- GRID DE TARJETAS (idéntico a clientes/mesas) -->
+        <section class="card-grid">
+
+            <article class="card" th:each="reserva : ${reservas}">
+                <div class="card-header">
+                    <h2 class="card-title"
+                        th:text="${reserva.cliente.nombre}">
+                        Nombre cliente
+                    </h2>
+
+                    <span class="card-id"
+                          th:text="${'ID # ' + reserva.id}">
+                        ID # 1
+                    </span>
+                </div>
+
+                <p class="card-meta">
+                    Mesa asignada: 
+                    <strong th:text="${reserva.mesa.numero}">5</strong>
+                </p>
+
+                <p class="card-meta">
+                    Fecha:
+                    <strong th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy')}">
+                        01/01/2025
+                    </strong>
+                </p>
+
+                <p class="card-meta">
+                    Hora:
+                    <strong th:text="${#temporals.format(reserva.hora, 'HH:mm')}">
+                        20:00
+                    </strong>
+                </p>
+
+                <p class="card-meta">
+                    Estado:
+                    <strong th:text="${reserva.estado}">ACTIVA</strong>
+                </p>
+
+                <div class="card-actions">
+                    <a th:href="@{'/reservas/editar/' + ${reserva.id}}"
+                       class="btn btn-outline-sm">
+                        ✏️ Editar
+                    </a>
+
+                    <a th:href="@{'/reservas/eliminar/' + ${reserva.id}}"
+                       class="btn btn-danger-sm"
+                       onclick="return confirm('¿Seguro que deseas eliminar esta reserva?');">
+                        🗑 Eliminar
+                    </a>
+                </div>
+            </article>
+
+        </section>
+
+        <a th:href="@{/}" class="back-link">
+            ← Volver al inicio
+        </a>
+    </main>
+
+    <footer class="app-footer">
+        SaborGourmet · Gestión de reservas
+    </footer>
+</div>
+</body>
+</html>

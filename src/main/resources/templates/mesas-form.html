@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${tituloFormulario}">Registrar mesa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="app-logo">
+            <div class="logo-badge"></div>
+            <div>
+                <div class="app-title">SaborGourmet</div>
+                <div class="app-subtitle">Nueva mesa</div>
+            </div>
+        </div>
+
+        <nav class="app-nav">
+            <a th:href="@{/}" class="nav-link">Inicio</a>
+            <a th:href="@{/mesas}" class="nav-link nav-link-active">Mesas</a>
+            <a th:href="@{/clientes}" class="nav-link">Clientes</a>
+            <a th:href="@{/reservas}" class="nav-link">Reservas</a>
+        </nav>
+    </header>
+
+    <!-- FORMULARIO -->
+    <main class="app-main">
+        <section class="form-card">
+
+            <h1 class="section-title" th:text="${tituloFormulario}">Registrar mesa</h1>
+
+            <form th:action="@{/mesas/guardar}" th:object="${mesa}" method="post"
+                  class="form-grid">
+
+                <input type="hidden" th:field="*{id}">
+
+                <!-- NUMERO -->
+                <div class="form-field">
+                    <label class="form-label">Número de mesa</label>
+                    <input type="number" th:field="*{numero}" class="form-input"
+                           required min="1">
+                </div>
+
+                <!-- CAPACIDAD -->
+                <div class="form-field">
+                    <label class="form-label">Capacidad</label>
+                    <input type="number" th:field="*{capacidad}" class="form-input"
+                           required min="1">
+                </div>
+
+                <!-- DISPONIBLE -->
+                <div class="form-field">
+                    <label class="form-label">Disponible</label>
+                    <select th:field="*{disponible}" class="form-select">
+                        <option th:value="true">Disponible</option>
+                        <option th:value="false">No disponible</option>
+                    </select>
+                </div>
+
+                <!-- ACCIONES -->
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Guardar mesa</button>
+                    <a th:href="@{/mesas}" class="btn btn-secondary">Cancelar</a>
+                </div>
+
+            </form>
+        </section>
+
+        <a th:href="@{/mesas}" class="back-link">← Volver</a>
+    </main>
+
+</div>
+
+</body>
+</html>

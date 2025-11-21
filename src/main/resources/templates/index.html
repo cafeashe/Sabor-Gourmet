@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SaborGourmet · Reservas y mesas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+  </head>
+
+  <body>
+    <div class="app-shell">
+      <!-- HEADER -->
+      <header class="app-header">
+        <div class="app-logo">
+          <div class="logo-badge"></div>
+          <div>
+            <div class="app-title">SaborGourmet</div>
+            <div class="app-subtitle">Reservas y mesas</div>
+          </div>
+        </div>
+        <nav class="app-nav">
+          <a th:href="@{/}" class="nav-link nav-link-active">Inicio</a>
+          <a th:href="@{/mesas}" class="nav-link">Mesas</a>
+          <a th:href="@{/reservas}" class="nav-link">Reservas</a>
+          <a th:href="@{/clientes}" class="nav-link">Clientes</a>
+          <a th:href="@{/mesas}" class="nav-link-primary">
+            <span>▶</span>
+            <span>Ver datos</span>
+          </a>
+        </nav>
+      </header>
+
+      <!-- CONTENIDO PRINCIPAL -->
+      <main class="app-main">
+        <section class="hero">
+          <!-- LADO IZQUIERDO -->
+          <div>
+            <h1 class="hero-left-title">
+              Organiza tus <span class="hero-highlight">mesas y reservas</span>
+              en un solo lugar.
+            </h1>
+
+            <p class="hero-desc">
+              Usa esta aplicación para revisar rápidamente la disponibilidad de
+              mesas, registrar nuevas reservas y ver qué clientes tienes
+              agendados para hoy. Desde aquí puedes crear, editar y cancelar
+              reservas sin perder la vista general del restaurante.
+            </p>
+
+            <div class="hero-tags">
+              <span class="hero-tag">Mesas disponibles</span>
+              <span class="hero-tag">Clientes registrados</span>
+              <span class="hero-tag">Reservas activas</span>
+            </div>
+
+            <div class="hero-actions">
+              <a th:href="@{/mesas}" class="btn-primary">
+                <span>Ver listado de mesas</span>
+              </a>
+              <a th:href="@{/reservas}" class="btn-secondary">
+                <span>Ver reservas</span>
+              </a>
+            </div>
+          </div>
+
+         <!-- LADO DERECHO (TARJETA ILUSTRATIVA) -->
+<aside class="hero-card">
+    <div class="hero-card-inner">
+        <div class="hero-pill">
+            ● Colección de datos
+        </div>
+
+        <h2 class="hero-card-title">Todo en un solo lugar</h2>
+        <p class="hero-card-text">
+            Consulta rápidamente qué mesas tienes registradas, qué clientes han
+            reservado y en qué horario, todo desde una interfaz clara y moderna.
+        </p>
+
+        <div class="hero-phone-screen">
+
+            <div class="hero-phone-label">Vista rápida</div>
+
+            <div class="hero-phone-value" style="font-size: 0.95rem; line-height: 1.4;">
+                Explora listas de mesas, clientes y reservas
+                con un diseño limpio y fácil de leer.
+            </div>
+
+            <div class="hero-phone-label" style="margin-top: 1rem;">Acciones disponibles</div>
+
+            <ul class="hero-phone-list">
+                <li>🪑 Ver mesas registradas</li>
+                <li>🧑‍🍳 Ver clientes</li>
+                <li>➕ Crear nuevas reservas</li>
+                <li>✏️ Editar o actualizar datos</li>
+                <li>🗑️ Cancelar reservas cuando sea necesario</li>
+            </ul>
+
+            <div class="hero-phone-chip">
+                Navega y gestiona fácilmente
+            </div>
+        </div>
+    </div>
+</aside>
+
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="app-footer">
+        SaborGourmet · Sistema de gestión de reservas y mesas
+      </footer>
+    </div>
+  </body>
+</html>

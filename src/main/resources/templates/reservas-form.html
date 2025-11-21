@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar reserva</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="app-logo">
+            <div class="logo-badge"></div>
+            <div>
+                <div class="app-title">SaborGourmet</div>
+                <div class="app-subtitle">Nueva reserva</div>
+            </div>
+        </div>
+
+        <nav class="app-nav">
+            <a th:href="@{/}" class="nav-link">Inicio</a>
+            <a th:href="@{/mesas}" class="nav-link">Mesas</a>
+            <a th:href="@{/clientes}" class="nav-link">Clientes</a>
+            <a th:href="@{/reservas}" class="nav-link nav-link-active">Reservas</a>
+        </nav>
+    </header>
+
+    <!-- FORMULARIO -->
+    <main class="app-main">
+        <section class="form-card">
+
+            <h1 class="section-title" th:text="${tituloFormulario}">Registrar reserva</h1>
+
+            <form th:action="@{/reservas/guardar}" th:object="${reserva}" method="post"
+                  class="form-grid">
+
+                <input type="hidden" th:field="*{id}">
+
+                <!-- Cliente -->
+                <div class="form-field">
+                    <label class="form-label">Cliente</label>
+                    <select th:field="*{cliente}" class="form-select" required>
+                        <option value="">Seleccionar cliente…</option>
+                        <option th:each="c : ${clientes}"
+                                th:value="${c.id}"
+                                th:text="${c.nombre}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Mesa -->
+                <div class="form-field">
+                    <label class="form-label">Mesa</label>
+                    <select th:field="*{mesa}" class="form-select" required>
+                        <option value="">Seleccionar mesa…</option>
+                        <option th:each="m : ${mesas}"
+                                th:value="${m.id}"
+                                th:text="${m.numero}">
+                        </option>
+                    </select>
+                </div>
+
+                <!-- Fecha -->
+                <div class="form-field">
+                    <label class="form-label">Fecha</label>
+                    <input type="date" th:field="*{fecha}" class="form-input" required>
+                </div>
+
+                <!-- Hora -->
+                <div class="form-field">
+                    <label class="form-label">Hora</label>
+                    <input type="time" th:field="*{hora}" class="form-input" required>
+                </div>
+
+                <!-- Estado -->
+                <div class="form-field">
+                    <label class="form-label">Estado</label>
+                    <select th:field="*{estado}" class="form-select">
+                        <option value="ACTIVA">ACTIVA</option>
+                        <option value="CANCELADA">CANCELADA</option>
+                    </select>
+                </div>
+
+                <!-- ACCIONES -->
+                <div class="form-actions">
+                    <button class="btn btn-primary" type="submit">Guardar reserva</button>
+                    <a th:href="@{/reservas}" class="btn btn-secondary">Cancelar</a>
+                </div>
+
+            </form>
+        </section>
+
+        <a th:href="@{/reservas}" class="back-link">← Volver</a>
+    </main>
+
+</div>
+
+</body>
+</html>

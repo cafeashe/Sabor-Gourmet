@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de clientes · Sabor Gourmet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="app-logo">
+            <div class="logo-badge"></div>
+            <div>
+                <div class="app-title">SaborGourmet</div>
+                <div class="app-subtitle">Gestión de clientes</div>
+            </div>
+        </div>
+        <nav class="app-nav">
+            <a th:href="@{/}" class="nav-link">Inicio</a>
+            <a th:href="@{/mesas}" class="nav-link">Mesas</a>
+            <a th:href="@{/clientes}" class="nav-link nav-link-active">Clientes</a>
+            <a th:href="@{/reservas}" class="nav-link">Reservas</a>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="app-main">
+
+        <header class="section-header">
+            <div>
+                <h1 class="section-title">Clientes registrados</h1>
+                <p class="section-subtitle">
+                    Registro de clientes que han realizado reservas en el restaurante.
+                </p>
+            </div>
+
+            <div class="section-actions">
+                <div class="chip">
+                    <span>👤</span>
+                    <span th:text="${#lists.size(clientes)} + ' clientes registrados'">
+                        0 clientes registrados
+                    </span>
+                </div>
+                <a th:href="@{/clientes/nuevo}" class="btn btn-primary">
+                    + Nuevo cliente
+                </a>
+            </div>
+        </header>
+
+        <!-- GRID DE TARJETAS -->
+        <section class="card-grid">
+            <article class="card" th:each="cliente : ${clientes}">
+                <div class="card-header">
+                    <h2 class="card-title" th:text="${cliente.nombre}">Nombre cliente</h2>
+                    <span class="card-id">
+                        ID #
+                        <span th:text="${cliente.id}">1</span>
+                    </span>
+                </div>
+
+                <p class="card-meta">
+                    Teléfono:
+                    <strong th:text="${cliente.telefono}">+56 9 1234 5678</strong>
+                </p>
+
+                <p class="card-meta">
+                    Correo:
+                    <strong th:text="${cliente.email}">correo@example.com</strong>
+                </p>
+
+                <div class="card-actions">
+                    <a th:href="@{'/clientes/editar/' + ${cliente.id}}"
+                       class="btn btn-outline-sm">
+                        ✏️ Editar
+                    </a>
+                    <a th:href="@{'/clientes/eliminar/' + ${cliente.id}}"
+                       class="btn btn-danger-sm"
+                       onclick="return confirm('¿Seguro que deseas eliminar este cliente?');">
+                        🗑 Eliminar
+                    </a>
+                </div>
+            </article>
+        </section>
+
+        <a th:href="@{/}" class="back-link">
+            ← Volver al inicio
+        </a>
+    </main>
+
+    <footer class="app-footer">
+        SaborGourmet · Gestión de clientes
+    </footer>
+</div>
+</body>
+</html>
